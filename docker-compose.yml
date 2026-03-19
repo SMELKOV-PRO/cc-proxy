@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  cc-proxy:
+    build: .
+    container_name: cc-proxy
+    ports:
+      - "3099:3099"
+    env_file:
+      - .env
+    environment:
+      - PORT=3099
+      - BIND_HOST=0.0.0.0
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:3099/health || wget -qO- http://localhost:3099/health >/dev/null 2>&1 || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "30m" # максимальный размер лога в одном файле 30Мб
+        max-file: "3" # сколько файлов сохранять максимум (ротация)

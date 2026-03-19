@@ -1,7 +1,7 @@
 import OpenAI from "openai";
-import { config }                                from "./config";
-import { toAnthropicResponse, toAnthropicStream } from "./anthropic-sse";
-import { runAgent }                              from "./agent";
+import { config }              from "./config";
+import { toAnthropicResponse } from "./anthropic-sse";
+import { runAgent }            from "./agent";
 
 // ─────────────────────────────────────────────────────────────
 // Helpers
@@ -134,7 +134,7 @@ function handleModels(): Response {
 // ─────────────────────────────────────────────────────────────
 Bun.serve({
   port:     config.port,
-  hostname: "127.0.0.1",
+  hostname: Bun.env.BIND_HOST ?? "127.0.0.1",
 
   async fetch(req) {
     const { pathname } = new URL(req.url);

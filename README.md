@@ -64,8 +64,8 @@ cp .env.example .env
 PORT=3099
 
 # Main LLM endpoint (any OpenAI-compatible API)
-ENDPOINT_BASE_URL=https://openrouter.ai/api/v1
-ENDPOINT_API_KEY=sk-or-...
+OPENAI_BASE_URL=https://openrouter.ai/api/v1
+OPENAI_API_KEY=sk-or-...
 ```
 
 #### Vision model (optional)
@@ -111,7 +111,7 @@ FILE_INJECT=true         # inject file contents when paths are mentioned in mess
 ### Running
 
 ```bash
-bun run index.ts
+bun run src/index.ts
 ```
 
 ### Connect Claude Code
@@ -131,6 +131,19 @@ export ANTHROPIC_MODEL=deepseek/deepseek-chat
 ```
 
 Or put them in your shell profile (`~/.zshrc`, `~/.bashrc`, PowerShell `$PROFILE`).
+
+### Docker
+
+```bash
+# Build
+docker build -t cc-proxy .
+
+# Run with env file
+docker run --rm -p 3099:3099 --env-file .env -e PORT=3099 -e BIND_HOST=0.0.0.0 cc-proxy
+
+# Or with compose
+docker compose up -d
+```
 
 ### Health check
 
@@ -227,8 +240,8 @@ cp .env.example .env
 PORT=3099
 
 # Основной LLM endpoint (любой OpenAI-совместимый API)
-ENDPOINT_BASE_URL=https://openrouter.ai/api/v1
-ENDPOINT_API_KEY=sk-or-...
+OPENAI_BASE_URL=https://openrouter.ai/api/v1
+OPENAI_API_KEY=sk-or-...
 ```
 
 #### Vision-модель (опционально)
@@ -274,7 +287,7 @@ FILE_INJECT=true         # инжектировать содержимое фа�
 ### Запуск
 
 ```bash
-bun run index.ts
+bun run src/index.ts
 ```
 
 ### Подключить Claude Code
@@ -294,6 +307,19 @@ export ANTHROPIC_MODEL=deepseek/deepseek-chat
 ```
 
 Или добавь в профиль шелла (`~/.zshrc`, `~/.bashrc`, PowerShell `$PROFILE`).
+
+### Docker
+
+```bash
+# Сборка
+docker build -t cc-proxy .
+
+# Запуск с .env
+docker run --rm -p 3099:3099 --env-file .env -e PORT=3099 -e BIND_HOST=0.0.0.0 cc-proxy
+
+# Или через compose
+docker compose up -d
+```
 
 ### Проверка работы
 
