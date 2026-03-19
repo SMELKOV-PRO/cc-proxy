@@ -6,10 +6,10 @@ import { describeImageFromUrl, preprocessImageBlocks } from "./vision";
 // ─────────────────────────────────────────────────────────────
 // Константы
 // ─────────────────────────────────────────────────────────────
-const MAX_ITERATIONS = Number(process.env.AGENT_MAX_ITERATIONS ?? 10);
+const MAX_ITERATIONS = Number(Bun.env.AGENT_MAX_ITERATIONS ?? 10);
 
 const FILE_PATH_RE  = /(?:^|[\s`"'])((~|\.{1,2})?\/[\w./@\-]+\.\w{1,10})/gm;
-const FILE_INJECT   = process.env.FILE_INJECT !== "false";
+const FILE_INJECT   = Bun.env.FILE_INJECT !== "false";
 const MAX_FILE_SIZE = 100 * 1024; // 100 KB
 
 // ─────────────────────────────────────────────────────────────
